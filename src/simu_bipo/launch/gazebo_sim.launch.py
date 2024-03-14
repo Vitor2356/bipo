@@ -30,14 +30,14 @@ def generate_launch_description():
 
     # Include the Gazebo launch file, provided by the gazebo_ros package
 
-    world = LaunchConfiguration('world')
     world_path = os.path.join(get_package_share_directory(package_name),'worlds', world_file_name)
     declare_world_cmd = DeclareLaunchArgument(
         name='world',
         default_value=world_path,
         description='Full path to the world model file to load'
     )
-        
+    world = LaunchConfiguration('world')
+
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(get_package_share_directory('gazebo_ros'), 'launch', 'gazebo.launch.py')]),
         launch_arguments={'world': world}.items()
@@ -62,24 +62,26 @@ def generate_launch_description():
     joint_state_broadcaster_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["joint_state_broadcaster"],
+        arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
     )
 
-    joint_trajectory_controller_spawner = Node(
+    controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["joint_trajectory_controller"],
+        arguments=["forward_position_controller", "--controller-manager", "/controller_manager"],
     )
 
     # Launch them all!
     return LaunchDescription([
         declare_world_cmd,
-        rsp,
         gazebo,
+        rsp,
         spawn_entity,
-        rviz_node,
         joint_state_broadcaster_spawner,
         RegisterEventHandler(event_handler=OnProcessExit(
                  target_action=joint_state_broadcaster_spawner,
-                 on_exit=[joint_trajectory_controller_spawner],)),
+                 on_exit=[controller_spawner],)),
+        RegisterEventHandler(event_handler=OnProcessExit(
+                 target_action=joint_state_broadcaster_spawner,
+                 on_exit=[rviz_node],)),
     ])

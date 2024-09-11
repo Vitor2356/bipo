@@ -29,18 +29,9 @@ install(
     description
     launch
     meshes
-    scripts
     worlds
   DESTINATION
     share/${PROJECT_NAME}
 )
-
-install(
-  PROGRAMS
-    scripts/start_gait.py
-  DESTINATION
-    lib/${PROJECT_NAME}
-)
-
 
 ament_package()

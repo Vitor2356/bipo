@@ -1,0 +1,23 @@
+publisher_forward_position_controller:
+  ros__parameters:
+
+    wait_sec_between_publish: 1
+    publish_topic: "/forward_position_controller/commands"
+
+    goal_names: ["pos1", "pos2", "pos3", "pos4"]
+    pos1: [-0.31, 0.94, -0.2, -0.2]
+    pos2: [-0.35, 0.88, -0.2, -0.2]
+    pos3: [-0.40, 0.79, -0.2, -0.2]
+    pos4: [-0.45, 0.76, -0.2, -0.2]
+
+#    goal_names: ["pos1", "pos2", "pos3", "pos4"]
+#    pos1: [-0.31, 0.94, 0.31, -0.56]
+#    pos2: [-0.35, 0.88, 0.42, -0.32]
+#    pos3: [-0.40, 0.79, 0.53, -0.12]
+#    pos4: [-0.45, 0.76, 0.54, -0.14]
+
+#    goal_names: ["pos1", "pos2", "pos3", "pos4"]
+#    pos1: [-0.31, 0.94, 0.31, -0.56, 0.0, 0.0, 0.0]
+#    pos2: [-0.35, 0.88, 0.42, -0.32, 0.0, 0.0, 0.0]
+#    pos3: [-0.40, 0.79, 0.53, -0.12, 0.0, 0.0, 0.0]
+#    pos4: [-0.45, 0.76, 0.54, -0.14, 0.0, 0.0, 0.0]

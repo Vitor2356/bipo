@@ -3,11 +3,22 @@
 <package format="3">
   <name>simu_bipo</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="vitor@todo.todo">vitor</maintainer>
-  <license>TODO: License declaration</license>
+  <description>Simulação do robô BIPO no Gazebo e RViz.</description>
+  <maintainer email="vitor@todo.todo">Vitor</maintainer>
+  <license>Apache-2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- Dependências de Build e Execução -->
+  <depend>gazebo_ros</depend>
+  <depend>robot_state_publisher</depend>
+  <depend>joint_state_broadcaster</depend>
+  <depend>rviz2</depend>
+  <depend>xacro</depend>
+  <depend>urdf</depend>
+
+  <!-- Exec_depend para Controladores -->
+  <exec_depend>ros2_controllers</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>

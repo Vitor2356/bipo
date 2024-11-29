@@ -3,49 +3,49 @@
 
   <gazebo reference="L_0_link">
     <material>Gazebo/Gray</material>
-    <mu1>0.001</mu1>
+    <mu1>0.01</mu1>
     <mu2>0.001</mu2>
   </gazebo>
 
   <gazebo reference="L_1_link">
     <material>Gazebo/Gray</material>
-    <mu1>0.001</mu1>
+    <mu1>0.01</mu1>
     <mu2>0.001</mu2>
   </gazebo>
 
   <gazebo reference="L_2_link">
     <material>Gazebo/Gray</material>
-    <mu1>0.001</mu1>
+    <mu1>0.01</mu1>
     <mu2>0.001</mu2>
   </gazebo>
 
   <gazebo reference="L_3_link">
     <material>Gazebo/Gray</material>
-    <mu1>0.001</mu1>
+    <mu1>0.01</mu1>
     <mu2>0.001</mu2>
   </gazebo>
 
   <gazebo reference="L_4_link">
     <material>Gazebo/Gray</material>
-    <mu1>0.001</mu1>
+    <mu1>0.01</mu1>
     <mu2>0.001</mu2>
   </gazebo>
 
   <gazebo reference="L_5_link">
     <material>Gazebo/Gray</material>
-    <mu1>0.001</mu1>
+    <mu1>0.01</mu1>
     <mu2>0.001</mu2>
   </gazebo>
 
   <gazebo reference="L_6_link">
     <material>Gazebo/Gray</material>
-    <mu1>0.001</mu1>
+    <mu1>0.01</mu1>
     <mu2>0.001</mu2>
   </gazebo>
 
   <gazebo reference="L_7_link">
     <material>Gazebo/Gray</material>
-    <mu1>0.001</mu1>
+    <mu1>0.01</mu1>
     <mu2>0.001</mu2>
   </gazebo>
 

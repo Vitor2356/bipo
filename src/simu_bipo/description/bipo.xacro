@@ -115,8 +115,8 @@
       effort="100"
       velocity="100" />
     <dynamics
-      damping="0.1"
-      friction="0.1" />
+      damping="0.000001"
+      friction="0.000001" />
   </joint>
   <link
     name="L_6_link">
@@ -125,7 +125,7 @@
         xyz="-0.01046 0.030187 2.4457E-05"
         rpy="0 0 0" />
       <mass
-        value="6.2077" />
+        value="1.0" />
       <inertia
         ixx="0.014538"
         ixy="0"
@@ -176,8 +176,8 @@
       effort="100"
       velocity="100" />
     <dynamics
-      damping="0.1"
-      friction="0.1" />
+      damping="0.000001"
+      friction="0.000001" />
   </joint>
   <link
     name="L_3_link">
@@ -186,7 +186,7 @@
         xyz="0.0087332 0.094445 0.11407"
         rpy="0 0 0" />
       <mass
-        value="4.7184" />
+        value="3.861" />
       <inertia
         ixx="0.0083251"
         ixy="0.0000166"
@@ -237,8 +237,8 @@
       effort="100"
       velocity="100" />
     <dynamics
-      damping="0.1"
-      friction="0.1" />
+      damping="0.000001"
+      friction="0.000001" />
   </joint>
   <link
     name="L_4_link">
@@ -247,7 +247,7 @@
         xyz="0.00078736 -0.065737 0.044105"
         rpy="0 0 0" />
       <mass
-        value="1.1717" />
+        value="0.78" />
       <inertia
         ixx="0.00046552"
         ixy="-0.0000180"
@@ -298,8 +298,8 @@
       effort="100"
       velocity="100" />
     <dynamics
-      damping="0.1"
-      friction="0.1" />
+      damping="0.000001"
+      friction="0.000001" />
   </joint>
   <link
     name="L_5_link">
@@ -308,7 +308,7 @@
         xyz="3.4552E-06 -0.061983 -2.3007E-10"
         rpy="0 0 0" />
       <mass
-        value="0.23479" />
+        value="0.254" />
       <inertia
         ixx="0.0000504"
         ixy="0"
@@ -359,7 +359,7 @@
       effort="100"
       velocity="100" />
     <dynamics
-      damping="0.1"
+      damping="0.000001"
       friction="0.1" />
   </joint>
   <link
@@ -369,7 +369,7 @@
         xyz="-0.00078736 -0.067164 -0.041901"
         rpy="0 0 0" />
       <mass
-        value="1.1717" />
+        value="0.78" />
       <inertia
         ixx="0.00046552"
         ixy="0.0000181"
@@ -420,8 +420,8 @@
       effort="100"
       velocity="100" />
     <dynamics
-      damping="0.1"
-      friction="0.1" />
+      damping="0.000001"
+      friction="0.000001" />
   </joint>
   <link
     name="L_1_link">
@@ -430,7 +430,7 @@
         xyz="3.4552E-06 -0.061983 -2.3007E-10"
         rpy="0 0 0" />
       <mass
-        value="0.23479" />
+        value="0.254" />
       <inertia
         ixx="0.0000504"
         ixy="0"
@@ -481,8 +481,8 @@
       effort="100"
       velocity="100" />
     <dynamics
-      damping="0.1"
-      friction="0.1" />
+      damping="0.000001"
+      friction="10" />
   </joint>
 
 </robot>

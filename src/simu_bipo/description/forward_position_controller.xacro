@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<!-- LOADING THE ROS2 FRAMEWORK WHICH INFORMS GAZEBO WHAT JOINTS ARE GOING TO BE CONTROLLER (PUT ALL JOINTS) -->
+  <ros2_control name="GazeboSystem" type="system">
+  
+    <hardware>
+      <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+    </hardware>
+
+    <joint name="L7_L0_joint">
+      <command_interface name="position">
+        <param name="min">-10</param>
+        <param name="max">10</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="L6_L7_joint">
+      <command_interface name="position">
+        <param name="min">-10</param>
+        <param name="max">10</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="L3_L6_joint">
+      <command_interface name="position">
+        <param name="min">-10</param>
+        <param name="max">10</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="initial_value">-0.1</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="L1_L2_joint">
+      <command_interface name="position">
+        <param name="min">-10</param>
+        <param name="max">10</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="initial_value">-0.3054</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+
+    <joint name="L2_L3_joint">
+      <command_interface name="position">
+        <param name="min">-10</param>
+        <param name="max">10</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="initial_value">0.2461</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+
+    <joint name="L4_L3_joint">
+      <command_interface name="position">
+        <param name="min">-10</param>
+        <param name="max">10</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="initial_value">0.3938</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+
+    <joint name="L5_L4_joint">
+      <command_interface name="position">
+        <param name="min">-10</param>
+        <param name="max">10</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="initial_value">-0.2655</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+
+  </ros2_control>
+
+<!-- LOADING THE CONTROLLER IN GAZEBO-->
+  <gazebo>
+    <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+      <parameters>$(find forward_position_controller)/config/controller.yaml</parameters>
+    </plugin>
+  </gazebo>
+
+
+</robot>

@@ -5,9 +5,7 @@ import launch_ros
 
 from launch import LaunchDescription
 from launch_ros.actions import Node
-from launch.actions import IncludeLaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, ExecuteProcess
-from launch.actions import ExecuteProcess, RegisterEventHandler
+from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, RegisterEventHandler
 from launch.event_handlers import OnProcessExit
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import Command, LaunchConfiguration
@@ -16,34 +14,36 @@ from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
 
-
-    # Include the robot_state_publisher launch file, provided by our own package. Force sim time to be enabled
-    # !!! MAKE SURE YOU SET THE PACKAGE NAME CORRECTLY !!!
-
-    package_name='simu_bipo' #<--- CHANGE ME
+    # Nome do pacote e arquivo de mundo
+    package_name = 'simu_bipo'
     world_file_name = 'empty.world'
 
-    rsp = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([os.path.join(get_package_share_directory(package_name),'launch','rsp.launch.py')]),
-        launch_arguments={'use_sim_time': 'true'}.items()
-    )
-
-    # Include the Gazebo launch file, provided by the gazebo_ros package
-
-    world = LaunchConfiguration('world')
-    world_path = os.path.join(get_package_share_directory(package_name),'worlds', world_file_name)
+    # Caminho para o arquivo de mundo
+    world_path = os.path.join(get_package_share_directory(package_name), 'worlds', world_file_name)
     declare_world_cmd = DeclareLaunchArgument(
         name='world',
         default_value=world_path,
         description='Full path to the world model file to load'
     )
-        
+    world = LaunchConfiguration('world')
+
+    # Inclui o launch file do robot_state_publisher
+    rsp = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(get_package_share_directory(package_name), 'launch', 'rsp.launch.py')
+        ),
+        launch_arguments={'use_sim_time': 'true'}.items()
+    )
+
+    # Inclui o launch file do Gazebo com o plugin correto
     gazebo = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([os.path.join(get_package_share_directory('gazebo_ros'), 'launch', 'gazebo.launch.py')]),
+        PythonLaunchDescriptionSource(
+            os.path.join(get_package_share_directory('gazebo_ros'), 'launch', 'gazebo.launch.py')
+        ),
         launch_arguments={'world': world}.items()
     )
 
-    # Run the spawner node from the gazebo_ros package. The entity name doesn't really matter if you only have a single robot.
+    # Spawner do robô no Gazebo
     spawn_entity = Node(
         package='gazebo_ros', 
         executable='spawn_entity.py',
@@ -51,35 +51,55 @@ def generate_launch_description():
         arguments=['-topic', 'robot_description', '-entity', 'my_bot'] 
     )
 
-    rviz_node = launch_ros.actions.Node(
+    # Nó do joint_state_publisher
+    joint_state_publisher_node = Node(
+        package='joint_state_publisher',
+        executable='joint_state_publisher',
+        name='joint_state_publisher',
+        output='screen',
+        parameters=[{'use_sim_time': True}]
+    )
+
+    # Nó do RViz
+    rviz_node = Node(
         package='rviz2',
         executable='rviz2',
         name='rviz2',
         output='screen',
-        arguments=['-d' + os.path.join(get_package_share_directory(package_name), 'config', 'config_file.rviz')]
+        arguments=['-d', os.path.join(get_package_share_directory(package_name), 'config', 'config_file.rviz')]
     )
 
+    # Spawner do Joint State Broadcaster
     joint_state_broadcaster_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["joint_state_broadcaster"],
+        arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
+        output="screen"
     )
 
-    joint_trajectory_controller_spawner = Node(
+    # Spawner do Forward Position Controller
+    controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["joint_trajectory_controller"],
+        arguments=["forward_position_controller", "--controller-manager", "/controller_manager"],
+        output="screen"
     )
 
-    # Launch them all!
+    # Registrar um Event Handler para iniciar o Forward Position Controller após o Joint State Broadcaster ser iniciado
+    event_handler = RegisterEventHandler(
+        event_handler=OnProcessExit(
+            target_action=joint_state_broadcaster_spawner,
+            on_exit=[controller_spawner],
+        )
+    )
+
     return LaunchDescription([
         declare_world_cmd,
-        rsp,
         gazebo,
+        rsp,
         spawn_entity,
+        joint_state_publisher_node,
         rviz_node,
         joint_state_broadcaster_spawner,
-        RegisterEventHandler(event_handler=OnProcessExit(
-                 target_action=joint_state_broadcaster_spawner,
-                 on_exit=[joint_trajectory_controller_spawner],)),
+        event_handler,
     ])

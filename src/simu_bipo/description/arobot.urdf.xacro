@@ -3,6 +3,7 @@
 
     <xacro:include filename="bipo.xacro" />
     <xacro:include filename="gazebo_references.xacro" />
-    <xacro:include filename="ros2_control.xacro" />
+    <!-- SET THE CONTROLLER TO BE USED -->
+    <xacro:include filename="forward_position_controller.xacro" />
 
 </robot>
